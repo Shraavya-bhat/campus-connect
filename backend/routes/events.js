@@ -20,4 +20,15 @@ router.put("/rsvp/:id", async (req, res) => {
   res.json(event);
 });
 
+router.post("/rsvp/:id", async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    event.rsvpCount += 1;
+    await event.save();
+    res.json(event);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
