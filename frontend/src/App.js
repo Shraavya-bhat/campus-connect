@@ -1,93 +1,201 @@
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import { useEffect, useState } from "react";
 
 function App() {
-
   const [events, setEvents] = useState([]);
-  const [form, setForm] = useState({
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("All");
+
+  const [formData, setFormData] = useState({
     title: "",
     description: "",
     category: "",
     date: "",
-    location: ""
+    location: "",
   });
+
+  const fetchEvents = async () => {
+    const res = await fetch("http://localhost:5000/api/events");
+    const data = await res.json();
+
+    const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    setEvents(sorted);
+    setFilteredEvents(sorted);
+  };
 
   useEffect(() => {
     fetchEvents();
   }, []);
 
-  const fetchEvents = async () => {
-    const res = await fetch("http://localhost:5000/api/events");
-    const data = await res.json();
-    setEvents(data);
-  };
+  useEffect(() => {
+    let filtered = events;
+
+    if (categoryFilter !== "All") {
+      filtered = filtered.filter(
+        (event) =>
+          event.category.toLowerCase() === categoryFilter.toLowerCase()
+      );
+    }
+
+    if (search) {
+      filtered = filtered.filter((event) =>
+        event.title.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    setFilteredEvents(filtered);
+  }, [search, categoryFilter, events]);
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const createEvent = async (e) => {
     e.preventDefault();
 
     await fetch("http://localhost:5000/api/events/create", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(form)
+      body: JSON.stringify(formData),
     });
 
-    fetchEvents();
-
-    setForm({
+    setFormData({
       title: "",
       description: "",
       category: "",
       date: "",
-      location: ""
+      location: "",
     });
+
+    fetchEvents();
   };
 
   const handleRSVP = async (id) => {
-  await fetch(`http://localhost:5000/api/events/rsvp/${id}`, {
-    method: "POST"
-  });
+    await fetch(`http://localhost:5000/api/events/rsvp/${id}`, {
+      method: "POST",
+    });
 
-  fetchEvents();
+    fetchEvents();
+  };
+
+  const deleteEvent = async (id) => {
+    await fetch(`http://localhost:5000/api/events/delete/${id}`, {
+      method: "DELETE",
+    });
+
+    fetchEvents();
   };
 
   return (
     <div className="container">
-      <h1>CampusConnect</h1>
+      <h1 className="title">CampusConnect</h1>
+
+      <div className="navbar">
+        <input
+          className="search"
+          placeholder="Search events..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <div className="filters">
+          <button onClick={() => setCategoryFilter("All")}>All</button>
+          <button onClick={() => setCategoryFilter("Technical")}>
+            Technical
+          </button>
+          <button onClick={() => setCategoryFilter("Cultural")}>
+            Cultural
+          </button>
+          <button onClick={() => setCategoryFilter("Sports")}>
+            Sports
+          </button>
+        </div>
+      </div>
 
       <h2>Create Event</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input name="title" placeholder="Title" value={form.title} onChange={handleChange} /><br/><br/>
-        <input name="description" placeholder="Description" value={form.description} onChange={handleChange} /><br/><br/>
-        <input name="category" placeholder="Category" value={form.category} onChange={handleChange} /><br/><br/>
-        <input type="date" name="date" value={form.date} onChange={handleChange} /><br/><br/>
-        <input name="location" placeholder="Location" value={form.location} onChange={handleChange} /><br/><br/>
+      <form className="card" onSubmit={createEvent}>
+        <input
+          name="title"
+          placeholder="Title"
+          value={formData.title}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          name="description"
+          placeholder="Description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          name="category"
+          placeholder="Category (Technical / Cultural / Sports)"
+          value={formData.category}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="date"
+          name="date"
+          value={formData.date}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          name="location"
+          placeholder="Location"
+          value={formData.location}
+          onChange={handleChange}
+          required
+        />
 
         <button type="submit">Create Event</button>
       </form>
 
-      <h2>Upcoming Events</h2>
+      <h2>Upcoming Events ({filteredEvents.length})</h2>
 
-      {events.map(event => (
+      {filteredEvents.map((event) => (
         <div key={event._id} className="card">
           <h3>{event.title}</h3>
+
           <p>{event.description}</p>
-          <p><b>Category:</b> {event.category}</p>
-          <p><b>Date:</b> {event.date}</p>
-          <p><b>Location:</b> {event.location}</p>
-          
-          <p><b>RSVP Count:</b> {event.rsvpCount}</p>
-          <button onClick={() => handleRSVP(event._id)}>
-          RSVP
+
+          <p>
+            <b>Category:</b> {event.category}
+          </p>
+
+          <p>
+            <b>Date:</b> {event.date}
+          </p>
+
+          <p>
+            <b>Location:</b> {event.location}
+          </p>
+
+          <p>
+            <b>RSVP Count:</b> {event.rsvpCount}
+          </p>
+
+          <button onClick={() => handleRSVP(event._id)}>RSVP</button>
+
+          <button
+            style={{ background: "#e74c3c", marginLeft: "10px" }}
+            onClick={() => deleteEvent(event._id)}
+          >
+            Delete
           </button>
         </div>
       ))}
