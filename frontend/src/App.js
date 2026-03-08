@@ -19,7 +19,7 @@ function App() {
     const res = await fetch("http://localhost:5000/api/events");
     const data = await res.json();
 
-    const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const sorted = data.sort((a, b) => b.rsvpCount - a.rsvpCount);
 
     setEvents(sorted);
     setFilteredEvents(sorted);
