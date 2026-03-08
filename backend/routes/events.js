@@ -16,13 +16,14 @@ router.get("/", async (req, res) => {
 router.post("/create", async (req, res) => {
   try {
     const event = new Event({
-      title: req.body.title,
-      description: req.body.description,
-      category: req.body.category,
-      date: req.body.date,
-      location: req.body.location,
-      rsvpCount: 0,
-    });
+    title: req.body.title,
+    description: req.body.description,
+    category: req.body.category,
+    date: req.body.date,
+    location: req.body.location,
+    image: req.body.image,
+    rsvpCount: 0
+  });
 
     const savedEvent = await event.save();
     res.json(savedEvent);
