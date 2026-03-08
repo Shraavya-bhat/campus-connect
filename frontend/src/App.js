@@ -169,6 +169,13 @@ function App() {
           required
         />
 
+        <input
+          name="image"
+          placeholder="Event Poster Image URL"
+          value={formData.image}
+          onChange={handleChange}
+        />
+
         <button type="submit">Create Event</button>
       </form>
 
