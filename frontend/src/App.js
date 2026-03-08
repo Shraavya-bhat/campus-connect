@@ -13,6 +13,7 @@ function App() {
     category: "",
     date: "",
     location: "",
+    image: ""
   });
 
   const fetchEvents = async () => {
