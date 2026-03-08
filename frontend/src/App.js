@@ -179,7 +179,7 @@ function App() {
 
 {filteredEvents.map((event) => (
         <div key={event._id} className="card">
-          <h3>{event.title}</h3>
+          <h3>🎉 {event.title}</h3>
 
           <p>{event.description}</p>
 
