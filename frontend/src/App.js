@@ -106,7 +106,7 @@ function App() {
       <div className="navbar">
         <input
           className="search"
-          placeholder="Search events..."
+          placeholder="Search events by title..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
