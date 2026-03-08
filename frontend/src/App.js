@@ -209,6 +209,9 @@ function App() {
           </button>
         </div>
       ))}
+      <footer style={{ marginTop: "40px", textAlign: "center" }}>
+        CampusConnect © 2026
+      </footer>
     </div>
   );
 }
