@@ -86,12 +86,17 @@ function App() {
   };
 
   const deleteEvent = async (id) => {
-    await fetch(`http://localhost:5000/api/events/delete/${id}`, {
-      method: "DELETE",
-    });
 
-    fetchEvents();
-  };
+  const confirmDelete = window.confirm("Are you sure you want to delete this event?");
+
+  if (!confirmDelete) return;
+
+  await fetch(`http://localhost:5000/api/events/delete/${id}`, {
+    method: "DELETE",
+  });
+
+  fetchEvents();
+};
 
   return (
     <div className="container">
