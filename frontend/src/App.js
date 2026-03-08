@@ -74,6 +74,7 @@ function App() {
       location: "",
     });
 
+    alert("Event created successfully!");
     fetchEvents();
   };
 
