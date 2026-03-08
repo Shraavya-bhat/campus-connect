@@ -6,10 +6,11 @@ const eventSchema = new mongoose.Schema({
   category: String,
   date: String,
   location: String,
+  image: String,
   rsvpCount: {
     type: Number,
-    default: 0
-  }
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("Event", eventSchema);
