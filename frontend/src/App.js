@@ -173,7 +173,11 @@ function App() {
 
       <h2>Upcoming Events ({filteredEvents.length})</h2>
 
-      {filteredEvents.map((event) => (
+      {filteredEvents.length === 0 && (
+        <p>No events found.</p>
+      )}
+
+{filteredEvents.map((event) => (
         <div key={event._id} className="card">
           <h3>{event.title}</h3>
 
