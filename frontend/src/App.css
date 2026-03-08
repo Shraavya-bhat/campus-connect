@@ -53,3 +53,8 @@ button {
 button:hover {
   background: #45a049;
 }
+
+.card:hover {
+  transform: scale(1.02);
+  transition: 0.2s;
+}
