@@ -68,3 +68,7 @@ button:hover {
   opacity: 0.9;
   cursor: pointer;
 }
+
+.card {
+  padding: 20px;
+}
