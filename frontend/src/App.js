@@ -225,7 +225,7 @@ function App() {
     </p>
 
     <button onClick={() => handleRSVP(eventItem._id)}>
-      RSVP
+    RSVP
     </button>
 
     <button
