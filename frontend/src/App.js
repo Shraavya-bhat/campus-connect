@@ -129,6 +129,8 @@ function App() {
       <h2>Create Event</h2>
 
       <form className="card" onSubmit={createEvent}>
+
+        
         <input
           name="title"
           placeholder="Title"
@@ -185,41 +187,65 @@ function App() {
         <p>No events found.</p>
       )}
 
-{filteredEvents.map((event) => (
-        <div key={event._id} className="card">
-          <h3>🎉 {event.title}</h3>
+{filteredEvents.map((eventItem) => (
+  <div key={eventItem._id} className="card">
 
-          <p>{event.description}</p>
+    {eventItem.image && (
+      <img
+        src={eventItem.image}
+        alt="event"
+        style={{
+          width: "100%",
+          borderRadius: "8px",
+          marginBottom: "10px"
+        }}
+      />
+    )}
 
-          <p>
-            <b>Category:</b> {event.category}
-          </p>
+    <h3>🎉 {eventItem.title}</h3>
 
-          <p>
-            <b>Date:</b> {event.date}
-          </p>
+    <p>{eventItem.description}</p>
 
-          <p>
-            <b>Location:</b> {event.location}
-          </p>
+    <p>
+      <b>Category:</b> {eventItem.category}
+    </p>
 
-          <p>
-            <b>RSVP Count:</b> {event.rsvpCount}
-          </p>
+    <p>
+      <b>Date:</b> {new Date(eventItem.date).toDateString()}
+    </p>
 
-          <button onClick={() => handleRSVP(event._id)}>RSVP</button>
+    <p>
+      <b>Location:</b> {eventItem.location}
+    </p>
 
-          <button
-            style={{ background: "#e74c3c", marginLeft: "10px" }}
-            onClick={() => deleteEvent(event._id)}
-          >
-            Delete
-          </button>
-        </div>
-      ))}
+    <p>
+      <b>RSVP Count:</b> {eventItem.rsvpCount}
+    </p>
+
+    <button onClick={() => handleRSVP(eventItem._id)}>
+      RSVP
+    </button>
+
+    <button
+      style={{ background: "#e74c3c", marginLeft: "10px" }}
+      onClick={() => deleteEvent(eventItem._id)}
+    >
+      Delete
+    </button>
+
+  </div>
+))}
       <footer style={{ marginTop: "40px", textAlign: "center" }}>
-        CampusConnect © 2026
-      </footer>
+  CampusConnect © 2026 |
+  <a
+    href="https://github.com/Shraavya-bhat/campus-connect"
+    target="_blank"
+    rel="noreferrer"
+    style={{ marginLeft: "8px" }}
+  >
+    GitHub Repo
+  </a>
+</footer>
     </div>
   );
 }
