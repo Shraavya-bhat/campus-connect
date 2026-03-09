@@ -63,3 +63,8 @@ button:hover {
   font-size: 32px;
   margin-bottom: 20px;
 }
+
+button:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
