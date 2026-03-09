@@ -103,7 +103,9 @@ function App() {
   return (
     <div className="container">
       <h1 className="title">CampusConnect</h1>
-
+      <p style={{ textAlign: "center" }}>
+      Discover and manage campus events easily.
+      </p>
       <div className="navbar">
         <input
           className="search"
