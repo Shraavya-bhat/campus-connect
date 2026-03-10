@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-
 function App() {
+  const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [search, setSearch] = useState("");
@@ -17,14 +17,19 @@ function App() {
   });
 
   const fetchEvents = async () => {
-    const res = await fetch("http://localhost:5000/api/events");
-    const data = await res.json();
 
-    const sorted = data.sort((a, b) => b.rsvpCount - a.rsvpCount);
+  setLoading(true);
 
-    setEvents(sorted);
-    setFilteredEvents(sorted);
-  };
+  const res = await fetch("http://localhost:5000/api/events");
+  const data = await res.json();
+
+  const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  setEvents(sorted);
+  setFilteredEvents(sorted);
+
+  setLoading(false);
+};
 
   useEffect(() => {
     fetchEvents();
@@ -182,7 +187,7 @@ function App() {
 
         <button type="submit">Create Event</button>
       </form>
-
+      {loading && <p>Loading events...</p>}
       <h2>Upcoming Events ({filteredEvents.length})</h2>
 
       {filteredEvents.length === 0 && (
