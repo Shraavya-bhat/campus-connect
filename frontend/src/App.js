@@ -217,7 +217,7 @@ function App() {
     </p>
 
     <p>
-      <b>Location:</b> {eventItem.location}
+      <b>📍 Location:</b> {eventItem.location}
     </p>
 
     <p>
