@@ -77,3 +77,22 @@ h2 {
   border-bottom: 1px solid #ddd;
   padding-bottom: 5px;
 }
+
+.category {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.category.Technical {
+  background: #e3f2fd;
+}
+
+.category.Cultural {
+  background: #fce4ec;
+}
+
+.category.Sports {
+  background: #e8f5e9;
+}

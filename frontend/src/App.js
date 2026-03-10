@@ -209,7 +209,10 @@ function App() {
     <p>{eventItem.description}</p>
 
     <p>
-      <b>Category:</b> {eventItem.category}
+      <b>Category:</b>
+<span className={`category ${eventItem.category}`}>
+  {eventItem.category}
+</span>
     </p>
 
     <p>
