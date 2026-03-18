@@ -16,9 +16,6 @@ A full-stack web application that helps students discover, create, and manage ca
 * Backend: Node.js, Express
 * Database: MongoDB
 
-## 📸 Screenshots
-
-(Add screenshots here)
 
 ## ⚡ How to Run
 
