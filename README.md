@@ -1,2 +1,33 @@
-# campus-connect
-An open-source platform that centralizes campus events, making it easier for students to discover and participate in activities.
+# CampusConnect 🎓
+
+A full-stack web application that helps students discover, create, and manage campus events.
+
+## 🚀 Features
+
+* Create and manage events
+* RSVP to events
+* Event detail page with routing
+* Search and filter events
+* Clean and responsive UI
+
+## 🛠 Tech Stack
+
+* Frontend: React.js
+* Backend: Node.js, Express
+* Database: MongoDB
+
+## 📸 Screenshots
+
+(Add screenshots here)
+
+## ⚡ How to Run
+
+```bash
+cd backend
+npm install
+npm start
+
+cd frontend
+npm install
+npm start
+```
