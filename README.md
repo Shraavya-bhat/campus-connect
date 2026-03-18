@@ -20,8 +20,7 @@ A full-stack web application that helps students discover, create, and manage ca
 
 ```bash
 cd backend
-npm install
-npm start
+node server.js
 
 cd frontend
 npm install
